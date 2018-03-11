@@ -13,6 +13,11 @@ unset -v PartDriveMenu
 
 Drives=$(cat /proc/partitions | grep -v loop | grep -v "^$" | grep -v sr | grep -v name | grep -v zram | awk '{ print $4}')
 Question='yad --timeout=10 --text-align=fill --borders=6 --skip-taskbar --sticky --wrap --center --image=gtk-dialog-question --button=gtk-no:1 --button=Si:0 --title="Chdir"'
+
+
+# posibilidad de levantar varios chroot de manera simultaneas
+# preguntar si desea limpiar los chroot
+
 chdir="/tmp/chdir"
 
 pre_ch (){
@@ -26,10 +31,9 @@ pre_ch (){
 }
 
 post_ch (){
-	umount -fl $chdir/proc
-	umount -fl $chdir/dev
-	umount -fl $chdir/sys
-	umount -fl $chdir
+	for j in $(mount | grep "$chdir" | awk '{print $3}'); do
+		umount -fl "$j"
+	done
 }
 
 for i in $Drives; do
@@ -64,13 +68,15 @@ GetRootPart (){
 	RootPart=$(echo "$RootPart" | awk -F '|' '{print $1}')
 }
 
+post_ch
+
 GetRootPart
 
 pre_ch
-mount /dev/$RootPart $chdir -o rw
+mount -o rw /dev/"$RootPart" "$chdir"
 
-x-terminal-emulator -e "chroot $chdir /bin/bash"
-exit
+#x-terminal-emulator -e "chroot $chdir"
+
 post_ch
 
 echo "Finalizado..."
