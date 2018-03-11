@@ -1,4 +1,28 @@
-commit 7e89c3b8800c1ce049adb327f245f9c97df154a0 (HEAD -> master, origin/master, origin/HEAD)
+commit 1c704105e852bc27c456d951731ac58de1b31b4a (HEAD -> master, origin/master, origin/HEAD)
+Author: jose perez <sinfallas@gmail.com>
+Date:   Sat Mar 10 21:43:51 2018 -0400
+
+    * archivo travis
+
+commit 6d1424915af4a1207c281c33cf7fdfd9785c2a44
+Author: Jose Perez <sinfallas@users.noreply.github.com>
+Date:   Thu Feb 22 19:21:24 2018 -0400
+
+    Update README.md
+
+commit 678ee0aa40ad5083997a897220d7e12c727a1fc8
+Author: Jose Perez <sinfallas@users.noreply.github.com>
+Date:   Thu Feb 22 19:21:01 2018 -0400
+
+    Update README.md
+
+commit b8c7312bcd1f7f71341779e42d090e189c3a5828
+Author: jose perez <sinfallas@gmail.com>
+Date:   Thu Feb 22 19:18:09 2018 -0400
+
+    * changelog
+
+commit 7e89c3b8800c1ce049adb327f245f9c97df154a0
 Author: jose perez <sinfallas@gmail.com>
 Date:   Thu Feb 22 19:17:52 2018 -0400
 
