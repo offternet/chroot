@@ -2,6 +2,8 @@
 # Made by Sinfallas <sinfallas@yahoo.com>
 # Licence: GPL-2
 
+#TO DO - Add check for root user 
+
 trap "rm -f /run/$(basename $0).pid; exit" 0 1 2 3 9 15
 echo "$BASHPID" > /run/$(basename $0).pid
 
@@ -16,7 +18,10 @@ Question='yad --timeout=10 --text-align=fill --borders=6 --skip-taskbar --sticky
 
 
 # posibilidad de levantar varios chroot de manera simultaneas
+# English Translation - possibility of raising several chroot simultaneously
+
 # preguntar si desea limpiar los chroot
+# English Translation - ask if you want to clean the chroot
 
 chdir="/tmp/chdir"
 
@@ -49,11 +54,11 @@ for i in $Drives; do
 done
 
 GetRootPart (){
-	RootPart=$(yad --text-align=fill --borders=6 --sticky --no-click --center --height="300" --list --title="Chdir" --column="Nombre" --button="Salir":3 --button=$"gtk-ok:2" --text="Seleccione la particion raiz del sistema." "${PartDriveMenu[@]}")
+	RootPart=$(yad --text-align=fill --borders=6 --sticky --no-click --center --height="300" --list --title="Chroot Selection" --column="Name" --button="Exit":3 --button=$"gtk-ok:2" --text="Select the system root partition." "${PartDriveMenu[@]}")
 	ret="$?"
 
 	if [ "$ret" = "3" ]; then
-		$Question --text="¿Esta seguro de querer cancelar?"
+		$Question --text="Are you sure you want to cancel?"
 	  	if [[ $? = 0 ]]; then
 	   		exit 1
 		else
@@ -62,7 +67,7 @@ GetRootPart (){
 	elif [ "$ret" = "252" ]; then
 		GetRootPart
 	elif [ "$RootPart" = "" ]; then
-		$Info --text="No selecciono una particion, intente de nuevo." --button=$"gtk-ok:1"
+		$Info --text="You didn't select a partition, Please select a partition." --button=$"gtk-ok:1"
 		GetRootPart
 	fi
 	RootPart=$(echo "$RootPart" | awk -F '|' '{print $1}')
@@ -79,5 +84,5 @@ mount -o rw /dev/"$RootPart" "$chdir"
 
 post_ch
 
-echo "Finalizado..."
+echo "Finshed"
 exit 0
